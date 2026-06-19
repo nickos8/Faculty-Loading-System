@@ -1,0 +1,55 @@
+<?php
+
+namespace App\Notifications;
+
+use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Notifications\Messages\MailMessage;
+use Illuminate\Notifications\Notification;
+
+class StudentEvaluationResultNotification extends Notification implements ShouldQueue
+{
+    use Queueable;
+
+    public function __construct(
+        public string $result,   // passed|failed
+        public array $meta = []
+    ) {
+        $this->afterCommit = true; // matches your pattern
+    }
+
+    public function via(object $notifiable): array
+    {
+        return ['mail'];
+    }
+
+    public function toMail(object $notifiable): MailMessage
+    {
+        $appName = config('app.name', 'School System');
+
+        $name = trim(($notifiable->first_name ?? '').' '.($notifiable->last_name ?? ''))
+            ?: ($notifiable->name ?? 'Student');
+
+        $label = strtoupper($this->result);
+
+        $mail = (new MailMessage)
+            ->subject("Official Notice: Evaluation Result ({$label}) — {$appName}")
+            ->greeting("Dear {$name},")
+            ->line('Your evaluation has been posted.');
+
+        if (!empty($this->meta['subject_code'])) $mail->line('Subject Code: '.$this->meta['subject_code']);
+        if (!empty($this->meta['subject_name'])) $mail->line('Subject: '.$this->meta['subject_name']);
+        if (!empty($this->meta['term'])) $mail->line('Term: '.$this->meta['term']);
+        if (!empty($this->meta['section'])) $mail->line('Section: '.$this->meta['section']);
+
+        $mail->line('Result: '.$label);
+
+        if (!empty($this->meta['remarks'])) {
+            $mail->line('Remarks: '.$this->meta['remarks']);
+        }
+
+        $mail->action('View Schedule', $this->meta['url'] ?? url('/student/schedule'));
+
+        return $mail->salutation("Sincerely,\n{$appName}");
+    }
+}
