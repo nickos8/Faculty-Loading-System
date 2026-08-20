@@ -9,7 +9,7 @@
 
         <!-- First Name -->
 <div class="mb-4">
-    <label for="first_name" class="block text-sm font-medium text-gray-700">First Naame</label>
+    <label for="first_name" class="block text-sm font-medium text-gray-700">First Name</label>
     <input type="text"
         name="first_name"
         value="{{ old('first_name') }}"
@@ -224,9 +224,9 @@
         <!-- Submit Button -->
         <div class="mt-4 text-center">
             <p class="text-sm text-gray-600">
-                already have an account?
+                Already have an account?
                 <a href="{{ route('login') }}" class="text-indigo-600 hover:text-indigo-900 font-semibold">
-                    Log-in here
+                    Log in here
                 </a>
             </p>
             </div>
@@ -234,7 +234,7 @@
 
 
         <div class="mt-4 text-center">
-            <button type="submit" class="w-full bg-indigo-600 text-white py-3 rounded-md shadow hover:bg-indigo-700 focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+            <button type="submit" class="w-full rounded-xl bg-indigo-600 py-3 text-sm font-semibold text-white shadow hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-sky-400 focus:ring-offset-2">
                 {{ __('Register') }}
             </button>
         </div>

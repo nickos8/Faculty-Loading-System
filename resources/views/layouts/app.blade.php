@@ -8,11 +8,11 @@
     {{-- Livewire CSS must be in <head> --}}
     @livewireStyles
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'Granby Faculty Loading System') }}</title>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600,700,800&display=swap" rel="stylesheet" />
     <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
 
     <link href="https://cdn.jsdelivr.net/npm/tom-select@2.3.1/dist/css/tom-select.css" rel="stylesheet">
@@ -23,13 +23,13 @@
   </head>
 
   <body class="font-sans antialiased">
-<div class="min-h-screen bg-gradient-to-br from-[#0d83d1] via-[#9eabba] to-[#333f65]">
+    <div class="app-shell">
 
       @include('layouts.navigation')
 
       <!-- Page Heading -->
       @isset($header)
-        <header class="bg-white shadow">
+        <header class="border-b border-slate-200/80 bg-white/90 shadow-sm backdrop-blur">
           <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
             {{ $header }}
           </div>
@@ -37,7 +37,7 @@
       @endisset
 
       <!-- Page Content -->
-      <main>
+      <main class="app-main">
         @isset($slot)
           {{-- Component usage: <x-app-layout> ... --}}
           {{ $slot }}
