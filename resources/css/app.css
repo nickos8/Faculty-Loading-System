@@ -2,69 +2,135 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+    --gc-navy: #0b3158;
+    --gc-blue: #0b6fb8;
+    --gc-blue-dark: #075b98;
+    --gc-sky: #eaf5fc;
+    --gc-cyan: #54c3e8;
+    --gc-ink: #132238;
+    --gc-muted: #607089;
+    --gc-border: #dce5ef;
+    --gc-surface: #ffffff;
+    --gc-canvas: #f4f7fb;
+    --gc-shadow: 0 12px 34px rgba(11, 49, 88, 0.09);
+}
+
+@layer base {
+    html { scroll-behavior: smooth; }
+    body { color: var(--gc-ink); background: var(--gc-canvas); }
+    [x-cloak] { display: none !important; }
+    ::selection { color: white; background: var(--gc-blue); }
+    :focus-visible { outline: 3px solid rgba(84, 195, 232, 0.42); outline-offset: 2px; }
+}
 
 @layer components {
-/* From Uiverse.io by adamgiebl */
-.cssbuttons-io-button {
-  background: #a370f0;
-  color: white;
-  font-family: inherit;
-  padding: 0.35em;
-  padding-left: 1.2em;
-  font-size: 17px;
-  font-weight: 500;
-  border-radius: 0.9em;
-  border: none;
-  letter-spacing: 0.05em;
-  display: flex;
-  align-items: center;
-  box-shadow: inset 0 0 1.6em -0.6em #714da6;
-  overflow: hidden;
-  position: relative;
-  height: 2.8em;
-  padding-right: 3.3em;
-  cursor: pointer;
+    .app-shell {
+        min-height: 100vh;
+        background: radial-gradient(circle at 8% 0%, rgba(84, 195, 232, 0.14), transparent 26rem), linear-gradient(180deg, #f8fbfe 0%, var(--gc-canvas) 36%, #eef3f8 100%);
+    }
+    .app-main { min-height: calc(100vh - 4.5rem); padding-bottom: 2rem; }
+    .gc-topbar {
+        background: rgba(255, 255, 255, 0.98); border-bottom: 1px solid rgba(220, 229, 239, 0.9);
+        box-shadow: 0 5px 24px rgba(11, 49, 88, 0.06);
+    }
+    .gc-brand-mark { box-shadow: 0 0 0 1px rgba(11, 49, 88, 0.09), 0 5px 14px rgba(11, 49, 88, 0.14); }
+    .gc-role-badge {
+        display: inline-flex; align-items: center; border: 1px solid #cfe5f4; border-radius: 9999px;
+        background: var(--gc-sky); padding: 0.25rem 0.625rem; font-size: 0.6875rem; font-weight: 700;
+        letter-spacing: 0.05em; color: var(--gc-blue-dark); text-transform: uppercase;
+    }
+    .gc-avatar {
+        display: grid; width: 2rem; height: 2rem; place-items: center; border-radius: 9999px;
+        background: linear-gradient(135deg, var(--gc-navy), var(--gc-blue)); color: white;
+        font-size: 0.75rem; font-weight: 700; box-shadow: 0 4px 12px rgba(11, 49, 88, 0.2);
+    }
+    .gc-drawer {
+        background: linear-gradient(180deg, #ffffff 0%, #f7fbfe 100%); border-right: 1px solid var(--gc-border);
+        box-shadow: 18px 0 50px rgba(11, 49, 88, 0.16);
+    }
+    .gc-nav-link {
+        display: flex; align-items: center; gap: 0.75rem; border-radius: 0.75rem; padding: 0.6875rem 0.75rem;
+        font-size: 0.875rem; font-weight: 600; transition: background-color 160ms ease, color 160ms ease, transform 160ms ease;
+    }
+    .gc-nav-link:hover { transform: translateX(2px); }
+    .gc-nav-link-idle { color: #52647c; }
+    .gc-nav-link-idle:hover { color: var(--gc-blue-dark); background: #edf7fd; }
+    .gc-nav-link-active {
+        color: white; background: linear-gradient(135deg, var(--gc-navy), var(--gc-blue));
+        box-shadow: 0 7px 16px rgba(11, 111, 184, 0.2);
+    }
+    .gc-nav-icon { width: 1.15rem; height: 1.15rem; flex: 0 0 auto; }
+    .gc-nav-section {
+        margin-top: 1.25rem; padding: 0 0.75rem 0.375rem; color: #8a99ad; font-size: 0.65rem;
+        font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase;
+    }
+    .gc-auth-shell {
+        min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 2rem 1rem;
+        background: radial-gradient(circle at 15% 12%, rgba(84, 195, 232, 0.35), transparent 24rem), radial-gradient(circle at 88% 92%, rgba(11, 111, 184, 0.25), transparent 28rem), linear-gradient(135deg, #082c50 0%, #0b558b 48%, #0b6fb8 100%);
+    }
+    .gc-auth-card {
+        width: 100%; max-width: 31rem; border: 1px solid rgba(255, 255, 255, 0.7); border-radius: 1.5rem;
+        background: rgba(255, 255, 255, 0.97); padding: clamp(1.5rem, 4vw, 2.25rem);
+        box-shadow: 0 30px 70px rgba(3, 26, 48, 0.3);
+    }
+    .gc-auth-card-wide { max-width: 58rem; }
+    .gc-auth-logo { width: 5rem; height: 5rem; border-radius: 1.25rem; object-fit: cover; box-shadow: 0 10px 24px rgba(11, 49, 88, 0.2); }
+    .form-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 1rem; }
+    @media (min-width: 768px) {
+        .form-grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        .form-grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+        .full-width { grid-column: 1 / -1; }
+    }
+    .form-grid-auto { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; }
+    .glass-light {
+        border: 1px solid rgba(255, 255, 255, 0.58); border-radius: 1rem; background: rgba(255, 255, 255, 0.82);
+        box-shadow: var(--gc-shadow); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+    }
 }
 
-.cssbuttons-io-button .icon {
-  background: white;
-  margin-left: 1em;
-  position: absolute;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 2.2em;
-  width: 2.2em;
-  border-radius: 0.7em;
-  box-shadow: 0.1em 0.1em 0.6em 0.2em #7b52b9;
-  right: 0.3em;
-  transition: all 0.3s;
+/* Unified styling for existing pages, including older Blade templates. */
+.app-shell main > div, .app-shell main > section { animation: gc-page-in 260ms ease-out both; }
+.app-shell main .rounded-2xl.bg-white,
+.app-shell main .rounded-2xl[class*="bg-white/"],
+.app-shell main .glass-light { border-color: var(--gc-border) !important; box-shadow: var(--gc-shadow) !important; }
+.app-shell main .rounded-2xl[class*="bg-white/"] { background: linear-gradient(135deg, rgba(255,255,255,0.98), rgba(239,247,252,0.96)) !important; }
+.app-shell main table { border-collapse: separate; border-spacing: 0; }
+.app-shell main thead, .app-shell main thead[class*="bg-slate-50"] { background: #edf5fa !important; }
+.app-shell main th { color: #53647a !important; letter-spacing: 0.035em; text-transform: uppercase; }
+.app-shell main tbody tr { transition: background-color 150ms ease; }
+.app-shell main tbody tr:hover { background: #f2f8fc !important; }
+.app-shell main input:not([type="checkbox"]):not([type="radio"]),
+.app-shell main select, .app-shell main textarea,
+.gc-auth-card input:not([type="checkbox"]):not([type="radio"]),
+.gc-auth-card select, .gc-auth-card textarea {
+    border-color: #cfdbe8 !important; border-radius: 0.75rem !important; background-color: #fff !important;
+    box-shadow: 0 1px 2px rgba(11, 49, 88, 0.04) !important; transition: border-color 150ms ease, box-shadow 150ms ease !important;
 }
-
-.cssbuttons-io-button:hover .icon {
-  width: calc(100% - 0.6em);
+.app-shell main input:focus, .app-shell main select:focus, .app-shell main textarea:focus,
+.gc-auth-card input:focus, .gc-auth-card select:focus, .gc-auth-card textarea:focus {
+    border-color: var(--gc-blue) !important; box-shadow: 0 0 0 3px rgba(84, 195, 232, 0.22) !important;
+    outline: none !important; transform: none !important;
 }
-
-.cssbuttons-io-button .icon svg {
-  width: 1.1em;
-  transition: transform 0.3s;
-  color: #7b52b9;
+.app-shell [class~="bg-slate-900"], .gc-auth-card [class~="bg-gray-800"], .gc-auth-card [class~="bg-indigo-600"] {
+    background: linear-gradient(135deg, var(--gc-navy), var(--gc-blue)) !important; box-shadow: 0 6px 14px rgba(11, 111, 184, 0.16);
 }
-
-.cssbuttons-io-button:hover .icon svg {
-  transform: translateX(0.1em);
+.app-shell [class*="hover:bg-slate-800"]:hover,
+.gc-auth-card [class*="hover:bg-gray-700"]:hover, .gc-auth-card [class*="hover:bg-indigo-700"]:hover {
+    background: linear-gradient(135deg, #082846, var(--gc-blue-dark)) !important;
 }
-
-.cssbuttons-io-button:active .icon {
-  transform: scale(0.95);
+.app-shell main a, .app-shell main button, .gc-auth-card a, .gc-auth-card button {
+    transition: color 150ms ease, background-color 150ms ease, border-color 150ms ease, box-shadow 150ms ease, transform 150ms ease;
 }
+.app-shell main a[class*="bg-slate-900"]:hover,
+.app-shell main button[class*="bg-slate-900"]:hover, .gc-auth-card button[type="submit"]:hover {
+    transform: translateY(-1px); box-shadow: 0 9px 20px rgba(11, 111, 184, 0.22);
+}
+.gc-auth-card label { color: #40536c; font-weight: 600; }
+.gc-auth-card a { color: var(--gc-blue-dark); }
+.gc-auth-card a:hover { color: var(--gc-navy); }
 
-.glass-light {
-    background: rgba(255, 255, 255, 0.65);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.35);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
-    border-radius: 0.75rem;
-  }
+@keyframes gc-page-in { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { scroll-behavior: auto !important; animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
 }

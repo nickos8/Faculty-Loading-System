@@ -50,8 +50,8 @@
             </p>
         </div>
 
-        <div class="mt-4 text-center">
-            <x-primary-button class="ms-8">
+        <div class="mt-6">
+            <x-primary-button class="w-full">
                 {{ __('Log in') }}
             </x-primary-button>
         </div>
